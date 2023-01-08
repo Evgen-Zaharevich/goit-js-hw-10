@@ -41,22 +41,31 @@ function onRenderCountriesInfo(countries) {
   }
 
   if (countries.length > 2 && countries.length < 10) {
-    const markup = countries
-      .map(({ flags, name }) => {
-        return `<div class="country-list__container"><li class="country-list__item">
+    onCreateMarkupFrom2To10Items(countries);
+  }
+
+  if (countries.length === 1) {
+    onCreateMarkupForOneItem(countries);
+  }
+}
+
+function onCreateMarkupFrom2To10Items(countries) {
+  const markup = countries
+    .map(({ flags, name }) => {
+      return `<div class="country-list__container"><li class="country-list__item">
         <img src="${flags.png}" alt="${name.official}" width="30" height="20" />
       </li>
       <h1 class="country-list__label">${name.official}</h1>
           </div>`;
-      })
-      .join('');
-    countryListRef.innerHTML = markup;
-  }
+    })
+    .join('');
+  countryListRef.innerHTML = markup;
+}
 
-  if (countries.length === 1) {
-    const markup = countries
-      .map(({ flags, name, capital, population, languages }) => {
-        return `<div class="country-list__container"><li class="country-list__item">
+function onCreateMarkupForOneItem(countries) {
+  const markup = countries
+    .map(({ flags, name, capital, population, languages }) => {
+      return `<div class="country-list__container"><li class="country-list__item">
         <img src="${flags.svg}" alt="${name.official}" width="30" height="20" />
       </li>
       <h1 class="country-label">${name.official}</h1></div>
@@ -66,8 +75,7 @@ function onRenderCountriesInfo(countries) {
               languages
             )}</p>
           `;
-      })
-      .join('');
-    countryListRef.innerHTML = markup;
-  }
+    })
+    .join('');
+  countryListRef.innerHTML = markup;
 }
